@@ -1,1 +1,2 @@
-# phones-app
+# phone-catalogue-static
+Static pages of phone catalogue
