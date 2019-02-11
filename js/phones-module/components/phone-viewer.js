@@ -2,10 +2,6 @@
 export default class PhoneViewer {
   constructor({ element }) {
     this._element = element;
-   
-    // this._element.addEventListener('click', (event) => {
-    //   const delegateTarget = event.target.closest('[data-element=""]');
-    // });
   }
 
   show(phoneDetails) {   
