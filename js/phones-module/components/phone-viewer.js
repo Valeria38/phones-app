@@ -1,11 +1,13 @@
+import Component from '../../component.js';
 
-export default class PhoneViewer {
+
+export default class PhoneViewer extends Component {
   constructor({ element }) {
-    this._element = element;
+    super({ element });
   }
 
   show(phoneDetails) {   
-    this._element.hidden = false; 
+    super.show();
     this._phoneDetails = phoneDetails;
     this._render();
   }
@@ -18,7 +20,6 @@ export default class PhoneViewer {
 
       <button>Back</button>
       <button>Add to basket</button>
-
 
       <h1>${phone.name}</h1>
 
