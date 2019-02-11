@@ -8,13 +8,13 @@ export default class PhoneCatalog extends Component{
     this._render();
 
     this._element.addEventListener('click', (event) => {
-      const delegateTarget = event.target.closest('[data-element="phone"]');
+      const detailsLink = event.target.closest('[data-element="details-link"]');
 
-      if (!delegateTarget) {
+      if (!detailsLink) {
         return;
       }
-
-      this._onPhoneSelected(event.target.dataset.phoneId);
+      const phoneElement = event.target.closest('[data-element="phone"]');
+      this._onPhoneSelected(phoneElement.dataset.phoneId);
     });
   }
 
@@ -27,7 +27,9 @@ export default class PhoneCatalog extends Component{
           data-phone-id="${phone.id}"
           >
             <a href="#!/phones/${phone.id}" class="thumb">
-              <img alt="${phone.name}" src="${phone.imageUrl}">
+              <img 
+              data-element="details-link" 
+              alt="${phone.name}" src="${phone.imageUrl}">
             </a>
 
             <div class="phones__btn-buy-wrapper">
@@ -36,7 +38,9 @@ export default class PhoneCatalog extends Component{
               </a>
             </div>
 
-            <a href="#!/phones/${phone.id}">${phone.name}</a>
+            <a
+            data-element="details-link"
+            href="#!/phones/${phone.id}">${phone.name}</a>
             <p>${phone.snippet}</p>
           </li>
         `).join('')}
