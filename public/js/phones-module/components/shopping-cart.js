@@ -5,6 +5,14 @@ export default class ShoppingCart extends Component {
     super({ element });
 
     this._itemsMap = {};
+    this.on('click', 'increase', (event) => {
+      const phone = event.target.closest('[data-element="item"]');
+      this.add(phone.dataset.itemId);
+    });
+    this.on('click', 'decrease', (event) => {
+      const phone = event.target.closest('[data-element="item"]');
+      this.remove(phone.dataset.itemId);
+    });
     this._render();
   }
 
@@ -33,7 +41,13 @@ export default class ShoppingCart extends Component {
       <p>Shopping Cart</p>
       <ul>
         ${ Object.entries(this._itemsMap).map(([phoneId, amount]) => `
-          <li>${phoneId} (${amount})</li>
+          <li
+          data-element="item"
+          data-item-id="${phoneId}"
+          >${phoneId} (${amount})
+          <button data-element="decrease"> - </button>
+          <button data-element="increase"> + </button>
+          </li>
         `).join('') }
       </ul>
     `;

@@ -37,6 +37,10 @@ export default class PhonesPage {
       this._catalog.hide();
       this._viewer.show(phoneDetails);
     });
+
+    this._catalog.subscribe('phone-added', (phoneId) => {
+      this._cart.add(phoneId);
+    });
   }
 
   _initViewer() {
@@ -47,6 +51,10 @@ export default class PhonesPage {
     this._viewer.subscribe('back', () => {
       this._viewer.hide();
       this._catalog.show();
+    });
+
+    this._viewer.subscribe('add', (phoneId) => {
+      this._cart.add(phoneId);
     });
   }
 
