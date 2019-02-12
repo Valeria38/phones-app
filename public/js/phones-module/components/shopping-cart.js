@@ -37,18 +37,25 @@ export default class ShoppingCart extends Component {
   }
 
   _render() {
+    const items = Object.entries(this._itemsMap);
+
     this._element.innerHTML = `
-      <p>Shopping Cart</p>
+      <h4>Shopping Cart</h4>
       <ul>
-        ${ Object.entries(this._itemsMap).map(([phoneId, amount]) => `
-          <li
-          data-element="item"
-          data-item-id="${phoneId}"
-          >${phoneId} (${amount})
-          <button data-element="decrease"> - </button>
-          <button data-element="increase"> + </button>
-          </li>
-        `).join('') }
+        ${ items.length > 0 ? `
+          ${ items.map(([phoneId, amount]) => `
+            <li
+            data-element="item"
+            data-item-id="${phoneId}"
+            >${phoneId} (${amount})
+            <button data-element="decrease"> - </button>
+            <button data-element="increase"> + </button>
+            </li>
+          `).join('') }
+        ` : `
+          <p>No phones selected.</p>
+        ` }
+        
       </ul>
     `;
   }

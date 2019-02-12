@@ -24,13 +24,25 @@ export default class PhonesPage {
     this._filter = new Filter({
       element: this._element.querySelector('[data-component="filter"]'),
     });
+    this._filter.subscribe('order-changed', () => {
+      this._showFilteredPhones();
+    });
+    this._filter.subscribe('query-changed', () => {
+      this._showFilteredPhones();
+    });
+  }
+
+  _showFilteredPhones() {
+    const currentFiltering = this._filter.getCurrentData();
+    const phones = PhoneService.getAll(currentFiltering);
+    this._catalog.show(phones);
   }
 
   _initCatalog() {
     this._catalog = new PhoneCatalog({
       element: this._element.querySelector('[data-component="phone-catalog"]'),
-      phones: PhoneService.getAll(),
     });
+    this._showFilteredPhones();
 
     this._catalog.subscribe('phone-selected', (phoneId) => {
       const phoneDetails = PhoneService.getById(phoneId);

@@ -226,7 +226,8 @@ const PhoneDetails = {
 };
 
 const PhoneService = {
-  getAll(query = '', sortBy) {
+  getAll({ query = '', orderField = '' } = {}) {
+    console.log('query '+query, 'order '+orderField)
     return PhonesFromServer;
   },
   getById() {
