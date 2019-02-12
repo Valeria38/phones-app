@@ -9,7 +9,7 @@ export default class Filter extends Component {
     this._render();
     this._queryField = this._element.querySelector('[data-element="query"]');
     this._orderField = this._element.querySelector('[data-element="order"]');
-
+    // console.log(this._orderField.value)
     this.on('change', 'order', () => {
       this.emit('order-changed');
     });
@@ -21,7 +21,7 @@ export default class Filter extends Component {
   getCurrentData() {
     return {
       query: this._queryField.value,
-      orderField: this._orderField.value
+      orderField: this._orderField.value,//'name'
     }
   }
 

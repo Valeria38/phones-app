@@ -35,6 +35,7 @@ export default class PhonesPage {
   _showFilteredPhones() {
     const currentFiltering = this._filter.getCurrentData();
     const phones = PhoneService.getAll(currentFiltering);
+    // console.log(phones)
     this._catalog.show(phones);
   }
 

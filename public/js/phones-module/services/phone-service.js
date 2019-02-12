@@ -227,11 +227,32 @@ const PhoneDetails = {
 
 const PhoneService = {
   getAll({ query = '', orderField = '' } = {}) {
-    console.log('query '+query, 'order '+orderField)
-    return PhonesFromServer;
+    const filteredPhones = this._filter(PhonesFromServer, query);
+    const sortedPhones = this._sortBy(filteredPhones, orderField);
+    return sortedPhones;
   },
   getById() {
     return PhoneDetails;
+  },
+
+  _filter(phones, query) {
+    return phones.filter((phone) => {
+        return phone.name.toLowerCase().includes(query.toLowerCase());
+    });
+  },
+
+  _sortBy(phones, orderField) {
+    const compareByName = (a, b) => {
+        return a['name'].localeCompare(b['name']);
+    };
+    const compareByAge = (a, b) => {
+        return a['age'] > b['age'];
+    }
+    if (orderField === 'name') {
+        return phones.sort(compareByName);
+    } else if (orderField === 'age') {
+        return phones.sort(compareByAge);
+    }
   }
 };
 
