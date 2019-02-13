@@ -1,6 +1,6 @@
-import Component from '../../component.js';
-
-const debounce = _.debounce;
+import Component from '../../component';
+/* global _:true */
+const { debounce } = _.debounce;
 const QUERY_CHANGE_DELAY = 500;
 
 export default class Filter extends Component {
@@ -21,8 +21,8 @@ export default class Filter extends Component {
   getCurrentData() {
     return {
       query: this._queryField.value,
-      orderField: this._orderField.value,//'name'
-    }
+      orderField: this._orderField.value,
+    };
   }
 
   _render() {

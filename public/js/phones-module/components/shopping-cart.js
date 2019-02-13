@@ -1,4 +1,4 @@
-import Component from '../../component.js';
+import Component from '../../component';
 
 export default class ShoppingCart extends Component {
   constructor({ element }) {
@@ -17,7 +17,7 @@ export default class ShoppingCart extends Component {
   }
 
   add(item) {
-    if (!this._itemsMap.hasOwnProperty(item)) {
+    if (!(item in this._itemsMap)) {
       this._itemsMap[item] = 0;
     }
     this._itemsMap[item]++;
@@ -25,14 +25,13 @@ export default class ShoppingCart extends Component {
   }
 
   remove(item) {
-    if (!this._itemsMap.hasOwnProperty(item)) {
+    if (!(item in this._itemsMap)) {
       return;
     }
-    this._itemsMap[item]--
-    
+    this._itemsMap[item]--;
     if (this._itemsMap[item] === 0) {
       delete this._itemsMap[item];
-    };
+    }
     this._render();
   }
 
@@ -46,8 +45,8 @@ export default class ShoppingCart extends Component {
           ${ items.map(([phoneId, amount]) => `
             <li
             data-element="item"
-            data-item-id="${phoneId}"
-            >${phoneId} (${amount})
+            data-item-id="${ phoneId }"
+            >${ phoneId } (${ amount })
             <button data-element="decrease"> - </button>
             <button data-element="increase"> + </button>
             </li>

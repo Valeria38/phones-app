@@ -1,4 +1,4 @@
-import Component from '../../component.js';
+import Component from '../../component';
 
 export default class PhoneCatalog extends Component {
   constructor({ element }) {
@@ -16,6 +16,7 @@ export default class PhoneCatalog extends Component {
       this.emit('phone-added', phone.dataset.phoneId);
     });
   }
+
   show(phones) {
     this._phones = phones;
     super.show();

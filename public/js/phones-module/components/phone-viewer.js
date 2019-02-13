@@ -1,4 +1,4 @@
-import Component from '../../component.js';
+import Component from '../../component';
 
 
 export default class PhoneViewer extends Component {
@@ -15,8 +15,8 @@ export default class PhoneViewer extends Component {
       largeImage.src = smallImage.src;
     });
 
-    this.on('click', 'add-button', (event) => {
-      this.emit('add', this._phoneDetails.id)
+    this.on('click', 'add-button', () => {
+      this.emit('add', this._phoneDetails.id);
     });
   }
 
