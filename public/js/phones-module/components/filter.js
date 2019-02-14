@@ -1,6 +1,6 @@
-import Component from '../../component';
+import Component from '../../component.js';
 /* global _:true */
-const { debounce } = _.debounce;
+const debounce = _.debounce;
 const QUERY_CHANGE_DELAY = 500;
 
 export default class Filter extends Component {
