@@ -34,7 +34,7 @@ export default class PhonesPage {
   }
 
   _showFilteredPhones() {
-    const currentFiltering = this._filter.getCurrentData();//{query:'str', orderField:'age'}
+    const currentFiltering = this._filter.getCurrentData();
     const phonesPromise = PhoneService.getAll(currentFiltering);
     phonesPromise.then((phones) => {
       this._catalog.show(phones);
