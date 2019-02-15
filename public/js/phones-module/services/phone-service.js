@@ -4,30 +4,37 @@ const PhoneService = {
   getAll({ query = '', orderField = '' } = {}) {
     return new Promise((resolve, reject) => {
       const url = `${BASE_URL}phones/phones.json`;
-      this._sendRequest(url, (PhonesFromServer) => {
+      const callbackForSendRequest = (PhonesFromServer) => {
         const filteredPhones = this._filter(PhonesFromServer, query);
         const sortedPhones = this._sortBy(filteredPhones, orderField);
         resolve(sortedPhones);
-      });
+      }
+      const requestPromise = this._sendRequest(url);
+      requestPromise.then(callbackForSendRequest);
     });
   },
   getById(phoneId, callback) {
     const url = `${BASE_URL}/phones/${ phoneId }.json`;
-    this._sendRequest(url, callback);
+    const requestPromise = this._sendRequest(url);
+    requestPromise.then(callback)
+    .catch(error => console.warn(error));
   },
 
   _sendRequest(url, callback) {
+    return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
     xhr.send();
     xhr.onload = (() => {
       if (xhr.status !== 200) {
-        console.warn(`${ xhr.status } ${ xhr.statusText }`);
-        return {};
+        reject(`${ xhr.status } ${ xhr.statusText }`);
+        return;
       }
       const data = JSON.parse(xhr.responseText);
-      callback(data);
+      resolve(data);
     });
+    });
+    
   },
 
   _filter(phones, query) {
