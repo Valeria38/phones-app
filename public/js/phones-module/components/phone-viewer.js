@@ -1,6 +1,5 @@
 import Component from '../../component.js';
 
-
 export default class PhoneViewer extends Component {
   constructor({ element }) {
     super({ element });

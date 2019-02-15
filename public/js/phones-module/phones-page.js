@@ -33,24 +33,21 @@ export default class PhonesPage {
     });
   }
 
-  _showFilteredPhones() {
+  async _showFilteredPhones() {
     const currentFiltering = this._filter.getCurrentData();
-    const phonesPromise = PhoneService.getAll(currentFiltering);
-    phonesPromise.then((phones) => {
-      this._catalog.show(phones);
-    });
+    const phones = await PhoneService.getAll(currentFiltering);
+    this._catalog.show(phones);
+    this._viewer.hide();
   }
 
   _initCatalog() {
     this._catalog = new PhoneCatalog({
       element: this._element.querySelector('[data-component="phone-catalog"]'),
     });
-    this._catalog.subscribe('phone-selected', (phoneId) => {
-      const detailsPromise = PhoneService.getById(phoneId);
-      detailsPromise.then((phoneDetails) => {
-        this._catalog.hide();
-        this._viewer.show(phoneDetails);
-      });
+    this._catalog.subscribe('phone-selected', async (phoneId) => {
+      const phoneDetails = await PhoneService.getById(phoneId);
+      this._catalog.hide();
+      this._viewer.show(phoneDetails);
     });
 
     this._catalog.subscribe('phone-added', (phoneId) => {
