@@ -15,9 +15,7 @@ const PhoneService = {
   },
   getById(phoneId, callback) {
     const url = `${BASE_URL}/phones/${ phoneId }.json`;
-    const requestPromise = this._sendRequest(url);
-    requestPromise.then(callback)
-    .catch(error => console.warn(error));
+    return this._sendRequest(url);
   },
 
   _sendRequest(url, callback) {

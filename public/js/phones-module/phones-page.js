@@ -46,7 +46,8 @@ export default class PhonesPage {
       element: this._element.querySelector('[data-component="phone-catalog"]'),
     });
     this._catalog.subscribe('phone-selected', (phoneId) => {
-      PhoneService.getById(phoneId, (phoneDetails) => {
+      const detailsPromise = PhoneService.getById(phoneId);
+      detailsPromise.then((phoneDetails) => {
         this._catalog.hide();
         this._viewer.show(phoneDetails);
       });
