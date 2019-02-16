@@ -14,20 +14,12 @@ const PhoneService = {
   },
 
   _sendRequest(url) {
-    return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-    xhr.send();
-    xhr.onload = (() => {
-      if (xhr.status !== 200) {
-        reject(`${ xhr.status } ${ xhr.statusText }`);
-        return;
-      }
-      const data = JSON.parse(xhr.responseText);
-      resolve(data);
+    return fetch(url)
+    .then(response => response.json())
+    .catch((error) => {
+      console.warn(error);
+      return Promise.reject(error);
     });
-    });
-    
   },
 
   _filter(phones, query) {
